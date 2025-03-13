@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "UnoCostAnalyzer",
+  "display": "standalone",
+  "name": "UnoCostAnalyzer",
+  "short_name": "UnoCostAnalyzer",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}
