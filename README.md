@@ -38,6 +38,4 @@ Aplikacja służy do monitorowania i zarządzania codziennymi wydatkami użytkow
   - Możliwość stworzenia interfejsu, który nie będzie intuicyjny dla użytkowników.
 - **Błędy w obsłudze danych:**
   - Ryzyko nieprawidłowego przetwarzania lub wyświetlania danych z bazy.
-- **Brak testów:**
-  - Możliwe niedostateczne testowanie aplikacji w różnych scenariuszach użytkowych.
 
