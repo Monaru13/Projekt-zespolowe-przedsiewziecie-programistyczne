@@ -18,8 +18,13 @@ public record CostItemsRepository
 
     public IEnumerable<CostItem> Items => _items; // todo dodać filtracje
 
-    public CostItemsRepository AddItem(CostItem item)
+    public CostItemsRepository AddItem(CostItem itemToAdd)
     {
-        return this with { _items = [.. _items, item] };
+        return this with { _items = [.. _items, itemToAdd] };
+    }
+
+    public CostItemsRepository EditItem(CostItem itemToEdit)
+    {
+        return this with { _items = [.. _items.Select(item => item.Id == itemToEdit.Id ? itemToEdit : item)] };
     }
 }
