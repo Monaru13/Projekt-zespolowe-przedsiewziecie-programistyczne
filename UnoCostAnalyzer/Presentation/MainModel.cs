@@ -1,3 +1,5 @@
+using UnoCostAnalyzer.Services;
+
 namespace UnoCostAnalyzer.Presentation;
 
 public partial record MainModel
@@ -10,6 +12,7 @@ public partial record MainModel
         INavigator navigator)
     {
         _navigator = navigator;
+
         Title = "Main";
         Title += $" - {localizer["ApplicationName"]}";
         Title += $" - {appInfo?.Value?.Environment}";
@@ -18,6 +21,9 @@ public partial record MainModel
     public string? Title { get; }
 
     public IState<string> Name => State<string>.Value(this, () => string.Empty);
+    public IState<CostItemsRepository> CostItems => State.Value(this, () => new CostItemsRepository());
+
+    public ValueTask AddItemTest() => CostItems.UpdateAsync(c => c?.AddItem(new(Guid.NewGuid(), "test", 100, DateTime.Now)));
 
     public async Task GoToSecond()
     {
