@@ -13,8 +13,6 @@ public partial record MainModel
     {
         _navigator = navigator;
 
-        CostItems = State.Value(this, () => new CostItemsRepository());
-
         Title = "Main";
         Title += $" - {localizer["ApplicationName"]}";
         Title += $" - {appInfo?.Value?.Environment}";
@@ -23,7 +21,7 @@ public partial record MainModel
     public string? Title { get; }
 
     public IState<string> Name => State<string>.Value(this, () => string.Empty);
-    public IState<CostItemsRepository> CostItems { get; }
+    public IState<CostItemsRepository> CostItems => State.Value(this, () => new CostItemsRepository());
 
     public ValueTask AddItemTest() => CostItems.UpdateAsync(c => c?.AddItem(new(Guid.NewGuid(), "test", 100, DateTime.Now)));
 
