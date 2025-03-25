@@ -22,4 +22,10 @@ public record CostItemsRepository
     {
         return this with { _items = [.. _items, item] };
     }
+
+
+    public CostItemsRepository RemoveItem(Guid itemId)
+    {
+        return this with { _items = [.. _items.Where(item => item.Id != itemId)] };
+    }
 }
