@@ -31,4 +31,13 @@ public partial record MainModel
         await _navigator.NavigateViewModelAsync<SecondModel>(this, data: new Entity(name!));
     }
 
+    public async ValueTask GoToAddItem()
+    {
+        var result = await _navigator.GetDataAsync<SecondModel, CostItem>(this);
+
+        if (result is not null)
+        {
+            await CostItems.UpdateAsync(c => c?.AddItem(result));
+        }
+    }
 }
