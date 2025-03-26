@@ -26,9 +26,13 @@ public partial record MainModel
     {
         var result = await _navigator.GetDataAsync<SecondModel, CostItem>(this, data: item);
 
+    public async ValueTask GoToAddItem()
+    {
+        var result = await _navigator.GetDataAsync<SecondModel, CostItem>(this);
+
         if (result is not null)
         {
-            await CostItems.UpdateAsync(c => c?.EditItem(result));
+            await CostItems.UpdateAsync(c => c?.AddItem(result));
         }
     }
 }

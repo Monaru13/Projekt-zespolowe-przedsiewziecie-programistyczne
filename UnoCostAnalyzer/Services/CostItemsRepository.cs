@@ -27,4 +27,10 @@ public record CostItemsRepository
     {
         return this with { _items = [.. _items.Select(item => item.Id == itemToEdit.Id ? itemToEdit : item)] };
     }
+
+
+    public CostItemsRepository RemoveItem(Guid itemId)
+    {
+        return this with { _items = [.. _items.Where(item => item.Id != itemId)] };
+    }
 }

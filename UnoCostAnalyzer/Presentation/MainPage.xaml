@@ -8,55 +8,33 @@
       NavigationCacheMode="Required"
       Background="{ThemeResource BackgroundBrush}">
     <ScrollViewer>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <utu:NavigationBar Content="{Binding Title}" />
+        <Grid RowDefinitions="Auto,*,*">
+            <Button Command="{Binding GoToAddItem}" FontSize="50" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="2" Style="{StaticResource FabStyle}" Content="&#x2795;" />
+            <Grid>
 
-            <StackPanel Grid.Row="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Spacing="16">
-                <ListView ItemsSource="{Binding CostItems.Items}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Button
-                                    Command="{utu:AncestorBinding AncestorType=ListView, Path=DataContext.GoToEditItem}"
-                                    CommandParameter="{Binding}"
-                                    >
-                                    <StackPanel>
-                                        <TextBlock FontSize="10" Text="{Binding Description}"/>
-                                        <TextBlock FontSize="10" Text="{Binding Cost}"/>
-                                        <TextBlock FontSize="5" Text="{Binding CreatedAt}"/>
-                                    </StackPanel>
-                                </Button>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <ListView IsItemClickEnabled="True"
-            ItemsSource="{Binding CostItems.Items}"
+                <utu:NavigationBar Content="{Binding Title}" />
+
+                <StackPanel Spacing="16" VerticalAlignment="Top" Grid.Row="1"
             >
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <StackPanel>
-                                    <TextBlock FontSize="8" Text="{Binding Description}" />
-                                    <TextBlock FontSize="8" Text="{Binding CreatedAt}" />
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <TextBox Text="{Binding Name, Mode=TwoWay}"
-            PlaceholderText="Enter your name:" />
-                <Button Content="Go to Second Page"
-            AutomationProperties.AutomationId="SecondPageButton"
-            Command="{Binding GoToSecond}" />
-                <Button Command="{Binding AddItemTest}" Content="Test dodaj" />
+                    <ListView Margin="50,0" ItemsSource="{Binding CostItems.Items}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="*,50">
+                                    <StackPanel Spacing="5" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">
+                                        <Button Style="{StaticResource IconButtonStyle}" Content="&#x270E;" />
+                                        <Button Style="{StaticResource IconButtonStyle}" Content="&#x274C;" />
+                                    </StackPanel>
+                                    <Button HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource AutoSuggestBoxQueryButtonStyle}"
+            <StackPanel>
+                                        <TextBlock FontSize="20" Text="{Binding Description}"/>
+                                        <TextBlock FontSize="30" Text="{Binding Cost}"/>
+                                        <TextBlock FontSize="10" Text="{Binding CreatedAt}"/>
+                </StackPanel>
+                </Button>
+            </Grid>
+            </DataTemplate>
+            </ListView.ItemTemplate>
+            </ListView>
             </StackPanel>
         </Grid>
     </ScrollViewer>
