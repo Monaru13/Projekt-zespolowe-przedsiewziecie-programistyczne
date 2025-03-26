@@ -20,16 +20,11 @@ public partial record MainModel
 
     public string? Title { get; }
 
-    public IState<string> Name => State<string>.Value(this, () => string.Empty);
     public IState<CostItemsRepository> CostItems => State.Value(this, () => new CostItemsRepository());
 
-    public ValueTask AddItemTest() => CostItems.UpdateAsync(c => c?.AddItem(new(Guid.NewGuid(), "test", 100, DateTime.Now)));
-
-    public async Task GoToSecond()
+    public async ValueTask GoToEditItem(CostItem item)
     {
-        var name = await Name;
-        await _navigator.NavigateViewModelAsync<SecondModel>(this, data: new Entity(name!));
-    }
+        var result = await _navigator.GetDataAsync<SecondModel, CostItem>(this, data: item);
 
     public async ValueTask GoToAddItem()
     {

@@ -26,10 +26,16 @@
     <StackPanel Grid.Row="1"
           HorizontalAlignment="Center"
           VerticalAlignment="Center">
-      <TextBlock Text="{Binding Entity.Name}"
+            <TextBlock Text="{Binding EditableItem.Description}"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Margin="8" />
+      <TextBox Text="{Binding Path=EditableItem.Description, Mode=TwoWay}" />
+      <TextBox Description="{Binding Path=EditableItem.Cost, Mode=TwoWay}" Text="{Binding EditableItem.Cost}" />
+      <StackPanel Spacing="45" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal">
+        <Button Command="{Binding OkCommand}" Content="Ok" />
+        <Button Command="{Binding CancelCommand}" Content="Cancel" />
+      </StackPanel>
     </StackPanel>
 
   </Grid>
