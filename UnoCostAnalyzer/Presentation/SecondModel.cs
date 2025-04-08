@@ -8,7 +8,8 @@ public partial record SecondModel
     public SecondModel(INavigator navigator, CostItem item)
     {
         _navigator = navigator;
-        EditableItem = item;
+
+        EditableItem = item ?? new();
     }
 
     public async Task OkCommand()
