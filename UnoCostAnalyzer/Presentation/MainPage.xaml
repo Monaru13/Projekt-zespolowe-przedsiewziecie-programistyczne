@@ -20,8 +20,8 @@
                         <DataTemplate>
                             <Grid ColumnDefinitions="*,50">
                                 <StackPanel Spacing="5" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">
-                                  <Button Style="{StaticResource IconButtonStyle}" Content="&#x270E;" />
-                                  <Button Style="{StaticResource IconButtonStyle}" Content="&#x274C;" />
+                                    <Button Style="{StaticResource IconButtonStyle}" Content="&#x270E;" />
+                                    <Button Style="{StaticResource IconButtonStyle}" Content="&#x274C;" />
                                 </StackPanel>
                                 <Button HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource AutoSuggestBoxQueryButtonStyle}"
                                     Command="{utu:AncestorBinding AncestorType=ListView, Path=DataContext.GoToEditItem}"
@@ -30,7 +30,23 @@
                                     <StackPanel>
                                         <TextBlock FontSize="20" Text="{Binding Description}"/>
                                         <TextBlock FontSize="30" Text="{Binding Cost}"/>
-                                        <TextBlock FontSize="10" Text="{Binding CreatedAt}"/>
+                                        <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding Tags}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal"></StackPanel>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Border Background="Lavender" CornerRadius="8" BorderThickness="1">
+                                                          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource BodySmall}" Text="{Binding}" Padding="5,2"/>
+                                                        </Border>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        <TextBlock Padding="0,5,0,0" FontSize="10" Text="{Binding CreatedAt}" />
                                     </StackPanel>
                                 </Button>
                             </Grid>

@@ -2,13 +2,13 @@ namespace UnoCostAnalyzer.Services;
 
 public record CostItemsRepository
 {
-    private const string ALL_TAG = "Wszystko";
+    private const string ALL_TAG = "wszystko";
 
     private List<CostItem> _items =
     [
-        new (Guid.NewGuid(), "Biedronka - Zakupy", 234.54m, ["zakupy"], DateTime.Now),
-        new (Guid.NewGuid(), "Lidl - jabłka", 12.4m, ["zakupy"],DateTime.Now),
-        new (Guid.NewGuid(), "Rachunki za gaz", 123.21m, ["rachunki"], DateTime.Now),
+        new (Guid.NewGuid(), "Biedronka - Zakupy", 234.54m, ["zakupy", "biedronka"], DateTime.Now),
+        new (Guid.NewGuid(), "Lidl - jabłka", 12.4m, ["zakupy", "lidl"],DateTime.Now),
+        new (Guid.NewGuid(), "Rachunki za gaz", 123.21m, ["rachunki", "dom"], DateTime.Now),
         new (Guid.NewGuid(), "Prąd", 154.45m, ["rachunki"], DateTime.Now),
     ];
 
