@@ -10,31 +10,49 @@
     <ScrollViewer>
         <Grid RowDefinitions="Auto,*,*">
             <Button Command="{Binding GoToAddItem}" FontSize="50" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="2" Style="{StaticResource FabStyle}" Content="&#x2795;" />
-            <Grid>
+            <utu:NavigationBar Content="{Binding Title}" />
 
-                <utu:NavigationBar Content="{Binding Title}" />
-
-                <StackPanel Spacing="16" VerticalAlignment="Top" Grid.Row="1"
+            <StackPanel Spacing="16" VerticalAlignment="Top" Grid.Row="1"
             >
-                    <ListView Margin="50,0" ItemsSource="{Binding CostItems.Items}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid ColumnDefinitions="*,50">
-                                    <StackPanel Spacing="5" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">
-                                        <Button Style="{StaticResource IconButtonStyle}" Content="&#x270E;" />
-                                        <Button Style="{StaticResource IconButtonStyle}" Content="&#x274C;" />
-                                    </StackPanel>
-                                    <Button HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource AutoSuggestBoxQueryButtonStyle}"
-            <StackPanel>
+                <ComboBox SelectedIndex="0" SelectedItem="{Binding Path=SelectedTag, Mode=TwoWay}" ItemsSource="{Binding CostItems.Tags}" />
+                <ListView Margin="50,0" ItemsSource="{Binding CostItems.Items}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="*,50">
+                                <StackPanel Spacing="5" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">
+                                    <Button Style="{StaticResource IconButtonStyle}" Content="&#x270E;" />
+                                    <Button Style="{StaticResource IconButtonStyle}" Content="&#x274C;" />
+                                </StackPanel>
+                                <Button HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource AutoSuggestBoxQueryButtonStyle}"
+                                    Command="{utu:AncestorBinding AncestorType=ListView, Path=DataContext.GoToEditItem}"
+                                    CommandParameter="{Binding}"
+                                    >
+                                    <StackPanel>
                                         <TextBlock FontSize="20" Text="{Binding Description}"/>
                                         <TextBlock FontSize="30" Text="{Binding Cost}"/>
-                                        <TextBlock FontSize="10" Text="{Binding CreatedAt}"/>
-                </StackPanel>
-                </Button>
-            </Grid>
-            </DataTemplate>
-            </ListView.ItemTemplate>
-            </ListView>
+                                        <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding Tags}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal"></StackPanel>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Border Background="Lavender" CornerRadius="8" BorderThickness="1">
+                                                          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource BodySmall}" Text="{Binding}" Padding="5,2"/>
+                                                        </Border>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        <TextBlock Padding="0,5,0,0" FontSize="10" Text="{Binding CreatedAt}" />
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackPanel>
         </Grid>
     </ScrollViewer>

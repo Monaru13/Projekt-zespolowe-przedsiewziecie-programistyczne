@@ -9,34 +9,29 @@
       xmlns:um="using:Uno.Material"
       Background="{ThemeResource BackgroundBrush}">
 
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition />
-    </Grid.RowDefinitions>
-    <utu:NavigationBar Content="Second Page">
-      <utu:NavigationBar.MainCommand>
-        <AppBarButton>
-          <AppBarButton.Icon>
-            <BitmapIcon UriSource="ms-appx:///Assets/Images/back.png" />
-          </AppBarButton.Icon>
-        </AppBarButton>
-      </utu:NavigationBar.MainCommand>
-    </utu:NavigationBar>
-    <StackPanel Grid.Row="1"
-          HorizontalAlignment="Center"
-          VerticalAlignment="Center">
-            <TextBlock Text="{Binding EditableItem.Description}"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        Margin="8" />
-      <TextBox Text="{Binding Path=EditableItem.Description, Mode=TwoWay}" />
-      <TextBox Description="{Binding Path=EditableItem.Cost, Mode=TwoWay}" Text="{Binding EditableItem.Cost}" />
-      <StackPanel Spacing="45" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal">
-        <Button Command="{Binding OkCommand}" Content="Ok" />
-        <Button Command="{Binding CancelCommand}" Content="Cancel" />
-      </StackPanel>
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <utu:NavigationBar Content="Second Page">
+            <utu:NavigationBar.MainCommand>
+                <AppBarButton>
+                    <AppBarButton.Icon>
+                        <BitmapIcon UriSource="ms-appx:///Assets/Images/back.png" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </utu:NavigationBar.MainCommand>
+        </utu:NavigationBar>
+        <StackPanel Margin="10,0" Spacing="5" VerticalAlignment="Top" Grid.Row="1">
+            <TextBox Text="{Binding Path=Tags, Mode=TwoWay}" />
+            <TextBox PlaceholderText="Kwota" Text="{Binding Path=EditableItem.Cost, Mode=TwoWay}" />
+            <TextBox PlaceholderText="Opis" TextWrapping="Wrap" Text="{Binding Path=EditableItem.Description, Mode=TwoWay}" />
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Spacing="10" Orientation="Horizontal">
+                <Button Style="{StaticResource FilledTonalButtonStyle}" Command="{Binding OkCommand}" Content="Ok" />
+                <Button Style="{StaticResource FilledTonalButtonStyle}" Command="{Binding CancelCommand}" Content="Cancel" />
+            </StackPanel>
+        </StackPanel>
 
-  </Grid>
+    </Grid>
 </Page>
