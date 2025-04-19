@@ -52,4 +52,9 @@ public partial record MainModel
             await CostItems.UpdateAsync(c => c?.AddItem(result));
         }
     }
+
+    public async ValueTask RemoveItem(Guid itemId)
+    {
+        await CostItems.UpdateAsync(c => c?.RemoveItem(itemId));
+    }
 }

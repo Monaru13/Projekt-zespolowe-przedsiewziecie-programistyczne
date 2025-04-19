@@ -20,8 +20,12 @@
                         <DataTemplate>
                             <Grid ColumnDefinitions="*,50">
                                 <StackPanel Spacing="5" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">
-                                    <Button Style="{StaticResource IconButtonStyle}" Content="&#x270E;" />
-                                    <Button Style="{StaticResource IconButtonStyle}" Content="&#x274C;" />
+                                    <Button Style="{StaticResource IconButtonStyle}" Content="&#x270E;"
+                                            Command="{utu:AncestorBinding AncestorType=ListView, Path=DataContext.GoToEditItem}"
+                                            CommandParameter="{Binding}"/>
+                                    <Button Style="{StaticResource IconButtonStyle}" Content="&#x274C;"
+                                            Command="{utu:AncestorBinding AncestorType=ListView, Path=DataContext.RemoveItem}"
+                                            CommandParameter="{Binding Id}"/>
                                 </StackPanel>
                                 <Button HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource AutoSuggestBoxQueryButtonStyle}"
                                     Command="{utu:AncestorBinding AncestorType=ListView, Path=DataContext.GoToEditItem}"

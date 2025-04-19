@@ -14,7 +14,7 @@ public record CostItemsRepository
 
     private string _selectedTag = ALL_TAG;
 
-    public IEnumerable<CostItem> Items => _items.Where(item => _selectedTag.Equals(ALL_TAG) || item.Tags.Contains(_selectedTag));
+    public IEnumerable<CostItem> Items => _items.Where(item => _selectedTag is null or ALL_TAG ? true : item.Tags.Contains(_selectedTag));
     public IEnumerable<string> Tags => _items.SelectMany(item => item.Tags).Distinct().Prepend(ALL_TAG);
     
     public CostItemsRepository AddItem(CostItem itemToAdd)
