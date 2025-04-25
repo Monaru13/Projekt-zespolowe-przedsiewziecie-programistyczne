@@ -14,7 +14,10 @@
 
             <StackPanel Spacing="16" VerticalAlignment="Top" Grid.Row="1"
             >
-                <ComboBox SelectedIndex="0" SelectedItem="{Binding Path=SelectedTag, Mode=TwoWay}" ItemsSource="{Binding CostItems.Tags}" />
+                <Grid ColumnDefinitions="*,150">
+                    <ComboBox Width="auto"  SelectedIndex="0" SelectedItem="{Binding Path=SelectedTag, Mode=TwoWay}" ItemsSource="{Binding CostItems.Tags}" />
+                    <TextBlock Style="{StaticResource HeadlineLarge}" Grid.Column="1" Width="100" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding CostItems.Total}"/>
+                </Grid>
                 <ListView Margin="50,0" ItemsSource="{Binding CostItems.Items}">
                     <ListView.ItemTemplate>
                         <DataTemplate>

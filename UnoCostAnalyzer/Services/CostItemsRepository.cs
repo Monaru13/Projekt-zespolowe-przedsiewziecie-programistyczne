@@ -16,7 +16,8 @@ public record CostItemsRepository
 
     public IEnumerable<CostItem> Items => _items.Where(item => _selectedTag is null or ALL_TAG ? true : item.Tags.Contains(_selectedTag));
     public IEnumerable<string> Tags => _items.SelectMany(item => item.Tags).Distinct().Prepend(ALL_TAG);
-    
+    public decimal Total => Items.Sum(item => item.Cost ?? 0);
+
     public CostItemsRepository AddItem(CostItem itemToAdd)
     {
         return this with { _items = [.. _items, itemToAdd] };
