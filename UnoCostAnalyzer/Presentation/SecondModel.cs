@@ -7,7 +7,10 @@ public partial record SecondModel
     public string Tags { get; set; }
     public string? Title { get; }
 
-    public SecondModel (INavigator navigator, IStringLocalizer localizer, CostItem item)
+    public SecondModel(
+        INavigator navigator,
+        IStringLocalizer localizer,
+        CostItem item)
     {
         _navigator = navigator;
         Title = $"{localizer["EditPageTitle"]}";

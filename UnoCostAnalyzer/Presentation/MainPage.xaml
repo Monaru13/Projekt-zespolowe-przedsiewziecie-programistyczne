@@ -9,14 +9,14 @@
       Background="{ThemeResource BackgroundBrush}">
     <ScrollViewer>
         <Grid RowDefinitions="Auto,*,*">
-            <Button Command="{Binding GoToAddItem}" FontSize="50" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="2" Style="{StaticResource FabStyle}" Content="&#x2795;" />
+            <Button Command="{Binding GoToAddItem}" FontSize="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="2" Style="{StaticResource FabStyle}" Content="&#x2795;" />
             <utu:NavigationBar Content="{Binding Title}" />
 
             <StackPanel Spacing="16" VerticalAlignment="Top" Grid.Row="1"
             >
                 <Grid ColumnDefinitions="*,150">
-                    <ComboBox Width="auto"  SelectedIndex="0" SelectedItem="{Binding Path=SelectedTag, Mode=TwoWay}" ItemsSource="{Binding CostItems.Tags}" />
-                    <TextBlock Style="{StaticResource HeadlineLarge}" Grid.Column="1" Width="100" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding CostItems.Total}"/>
+                  <ComboBox Width="auto"  SelectedIndex="0" SelectedItem="{Binding Path=SelectedTag, Mode=TwoWay}" ItemsSource="{Binding CostItems.Tags}" />
+                  <TextBlock Style="{StaticResource HeadlineLarge}" Grid.Column="1" Width="100" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding CostItems.Total}"/>
                 </Grid>
                 <ListView Margin="50,0" ItemsSource="{Binding CostItems.Items}">
                     <ListView.ItemTemplate>
