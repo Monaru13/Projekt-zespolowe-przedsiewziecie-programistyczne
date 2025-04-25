@@ -5,10 +5,12 @@ public partial record SecondModel
     private readonly INavigator _navigator;
     public CostItem EditableItem { get; set; }
     public string Tags { get; set; }
+    public string? Title { get; }
 
-    public SecondModel(INavigator navigator, CostItem item)
+    public SecondModel (INavigator navigator, IStringLocalizer localizer, CostItem item)
     {
         _navigator = navigator;
+        Title = $"{localizer["EditPageTitle"]}";
 
         EditableItem = item ?? new();
         Tags = string.Join(" ", EditableItem.Tags);
