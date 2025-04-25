@@ -16,7 +16,11 @@ public partial record SecondModel
 
     public async Task OkCommand()
     {
-        await _navigator.NavigateBackWithResultAsync(this, data: EditableItem with { Tags = Tags.Split(' ')});
+        await _navigator.NavigateBackWithResultAsync(this, data: EditableItem with
+        {
+            Tags = Tags.Split(' '),
+            CreatedAt = DateTime.Now
+        });
     }
 
     public async Task CancelCommand()
