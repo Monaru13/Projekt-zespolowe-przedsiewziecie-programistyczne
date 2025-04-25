@@ -7,6 +7,8 @@ public partial record SecondModel
     public string Tags { get; set; }
     public string? Title { get; }
 
+    public IState<ValidationErrors> Errors => State.Value(this, () => new ValidationErrors());
+
     public SecondModel(
         INavigator navigator,
         IStringLocalizer localizer,
@@ -21,6 +23,11 @@ public partial record SecondModel
 
     public async Task OkCommand()
     {
+        if (!await IsCostValid(EditableItem.Cost))
+        {
+            return;
+        }
+
         await _navigator.NavigateBackWithResultAsync(this, data: EditableItem with
         {
             Tags = Tags.Split(' '),
@@ -31,5 +38,22 @@ public partial record SecondModel
     public async Task CancelCommand()
     {
         await _navigator.NavigateBackAsync(this);
+    }
+
+    private async Task<bool> IsCostValid(decimal? cost)
+    {
+        if (cost is < 0)
+        {
+            await Errors.UpdateAsync(e => new ValidationErrors { CostErrorMessage = "Watrość nie może być ujemna" });
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public class ValidationErrors
+    {
+        public string? CostErrorMessage { get; set; }
     }
 }
