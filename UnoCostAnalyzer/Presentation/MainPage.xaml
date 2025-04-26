@@ -9,7 +9,15 @@
       Background="{ThemeResource BackgroundBrush}">
     <ScrollViewer>
         <Grid RowDefinitions="Auto,*,*">
-            <Button Command="{Binding GoToAddItem}" FontSize="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="2" Style="{StaticResource FabStyle}" Content="&#x2795;" />
+            <Button
+                AutomationProperties.AutomationId="NewItemButton"
+                Command="{Binding GoToAddItem}"
+                FontSize="30"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Grid.Row="2"
+                Style="{StaticResource FabStyle}"
+                Content="&#x2795;" />
             <utu:NavigationBar Content="{Binding Title}" />
 
             <StackPanel Spacing="16" VerticalAlignment="Top" Grid.Row="1"
