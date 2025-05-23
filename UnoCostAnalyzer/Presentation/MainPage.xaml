@@ -7,68 +7,154 @@
       xmlns:um="using:Uno.Material"
       NavigationCacheMode="Required"
       Background="{ThemeResource BackgroundBrush}">
-    <ScrollViewer>
-        <Grid RowDefinitions="Auto,*,*">
-            <Button
+
+    <Page.Resources>
+        <Style TargetType="ListViewItem" x:Key="HoverListItemStyle" BasedOn="{StaticResource ListViewItemStyle}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Grid Background="Transparent">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames
+                                                Storyboard.TargetName="ActionButtons"
+                                                Storyboard.TargetProperty="Visibility">
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Grid ColumnDefinitions="*,Auto" Padding="8">
+                                <ContentPresenter />
+
+                                <StackPanel
+                                    x:Name="ActionButtons"
+                                    Grid.Column="1"
+                                    Spacing="4"
+                                    Visibility="Collapsed"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+                                    <Button 
+                                        Style="{StaticResource IconButtonStyle}"
+                                        Content="✏"
+                                        Command="{utu:AncestorBinding AncestorType=ListView, Path=DataContext.GoToEditItem}"
+                                        CommandParameter="{Binding}" />
+                                    <Button 
+                                        Style="{StaticResource IconButtonStyle}"
+                                        Content="❌"
+                                        Command="{utu:AncestorBinding AncestorType=ListView, Path=DataContext.RemoveItem}"
+                                        CommandParameter="{Binding Id}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="16">
+
+        <!-- Navigation bar -->
+        <utu:NavigationBar Content="{Binding Title}" />
+
+        <!-- Header with total, filter, and FAB -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto,Auto" Margin="0,0" Padding="15,10" VerticalAlignment="Center">
+            <TextBlock 
+                Style="{StaticResource HeadlineLarge}" 
+                VerticalAlignment="Center" 
+                Text="{Binding CostItems.Total, Converter={StaticResource CurrencyConverter}, ConverterParameter='PLN'}"
+                Foreground="{ThemeResource PrimaryBrush}"
+                FontWeight="Bold"
+                FontSize="36"
+                HorizontalAlignment="Left"
+                Grid.Column="0" />
+
+            <ComboBox 
+                Width="200"
+                SelectedIndex="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                SelectedItem="{Binding Path=SelectedTag, Mode=TwoWay}"
+                ItemsSource="{Binding CostItems.Tags}"
+                Margin="30,0"
+                Grid.Column="1" />
+
+            <Button 
+                Style="{StaticResource FabStyle}" 
+                Content="&#x2795;"
                 AutomationProperties.AutomationId="NewItemButton"
                 Command="{Binding GoToAddItem}"
-                FontSize="30"
-                VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"
-                Grid.Row="2"
-                Style="{StaticResource FabStyle}"
-                Content="&#x2795;" />
-            <utu:NavigationBar Content="{Binding Title}" />
-
-            <StackPanel Spacing="16" VerticalAlignment="Top" Grid.Row="1"
-            >
-                <Grid ColumnDefinitions="*,150">
-                  <ComboBox Width="auto"  SelectedIndex="0" SelectedItem="{Binding Path=SelectedTag, Mode=TwoWay}" ItemsSource="{Binding CostItems.Tags}" />
-                  <TextBlock Style="{StaticResource HeadlineLarge}" Grid.Column="1" Width="100" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center" Text="{Binding CostItems.Total}"/>
-                </Grid>
-                <ListView Margin="50,0" ItemsSource="{Binding CostItems.Items}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid ColumnDefinitions="*,50">
-                                <StackPanel Spacing="5" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">
-                                    <Button Style="{StaticResource IconButtonStyle}" Content="&#x270E;"
-                                            Command="{utu:AncestorBinding AncestorType=ListView, Path=DataContext.GoToEditItem}"
-                                            CommandParameter="{Binding}"/>
-                                    <Button Style="{StaticResource IconButtonStyle}" Content="&#x274C;"
-                                            Command="{utu:AncestorBinding AncestorType=ListView, Path=DataContext.RemoveItem}"
-                                            CommandParameter="{Binding Id}"/>
-                                </StackPanel>
-                                <Button HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource AutoSuggestBoxQueryButtonStyle}"
-                                    Command="{utu:AncestorBinding AncestorType=ListView, Path=DataContext.GoToEditItem}"
-                                    CommandParameter="{Binding}"
-                                    >
-                                    <StackPanel>
-                                        <TextBlock FontSize="20" Text="{Binding Description}"/>
-                                        <TextBlock FontSize="30" Text="{Binding Cost}"/>
-                                        <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Left" ItemsSource="{Binding Tags}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <StackPanel Orientation="Horizontal"></StackPanel>
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Grid>
-                                                        <Border Background="Lavender" CornerRadius="8" BorderThickness="1">
-                                                          <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource BodySmall}" Text="{Binding}" Padding="5,2"/>
-                                                        </Border>
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                        <TextBlock Padding="0,5,0,0" FontSize="10" Text="{Binding CreatedAt}" />
-                                    </StackPanel>
-                                </Button>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
+                VerticalAlignment="Center"
+                Grid.Column="2" />
         </Grid>
-    </ScrollViewer>
+
+        <!-- Scrollable ListView only -->
+        <ScrollViewer Grid.Row="2">
+            <ListView 
+                ItemsSource="{Binding CostItems.Items}" 
+                ItemContainerStyle="{StaticResource HoverListItemStyle}"
+                Margin="0,0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Button 
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Style="{StaticResource AutoSuggestBoxQueryButtonStyle}"
+                                Command="{utu:AncestorBinding AncestorType=ListView, Path=DataContext.GoToEditItem}"
+                                CommandParameter="{Binding}">
+                                <StackPanel>
+                                    <TextBlock FontSize="20" Text="{Binding Description}" />
+                                    <TextBlock 
+                                        FontSize="24" 
+                                        FontWeight="SemiBold" 
+                                        Foreground="{ThemeResource PrimaryBrush}" 
+                                        Text="{Binding Cost, Converter={StaticResource CurrencyConverter}, ConverterParameter='PLN'}" />
+                                    <ItemsControl
+                                        ItemsSource="{Binding Tags}"
+                                        Margin="0,4,0,0">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal" Spacing="4" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border 
+                                                    Background="{ThemeResource SecondaryBrush}" 
+                                                    CornerRadius="8" 
+                                                    Padding="6,2"
+                                                    Margin="2,0">
+                                                    <TextBlock 
+                                                        Style="{StaticResource BodySmall}" 
+                                                        Text="{Binding}" 
+                                                        Foreground="White" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <TextBlock 
+                                        Padding="0,4,0,0" 
+                                        FontSize="12" 
+                                        Foreground="{ThemeResource SubtleTextBrush}" 
+                                        Text="{Binding CreatedAt}" />
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
+    </Grid>
 </Page>
