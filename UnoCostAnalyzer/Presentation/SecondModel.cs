@@ -23,14 +23,14 @@ public partial record SecondModel
 
     public async Task OkCommand()
     {
-        if (!await IsCostValid(EditableItem.Cost))
+        if (!await IsCostValid(EditableItem.Cost) || !await IsDescriptionValid(EditableItem.Description))
         {
             return;
         }
 
         await _navigator.NavigateBackWithResultAsync(this, data: EditableItem with
         {
-            Tags = Tags.Split(' '),
+            Tags = Tags.Split(' ', StringSplitOptions.RemoveEmptyEntries),
             CreatedAt = DateTime.Now
         });
     }
@@ -42,10 +42,26 @@ public partial record SecondModel
 
     private async Task<bool> IsCostValid(decimal? cost)
     {
+        if (cost is null)
+        {
+            await Errors.UpdateAsync(static e => new ValidationErrors { CostErrorMessage = "Wartość jest wymagana." });
+            return false;
+        }
+
         if (cost is < 0)
         {
-            await Errors.UpdateAsync(e => new ValidationErrors { CostErrorMessage = "Watrość nie może być ujemna" });
+            await Errors.UpdateAsync(e => new ValidationErrors { CostErrorMessage = "Wartość nie może być ujemna." });
+            return false;
+        }
 
+        return true;
+    }
+
+    private async Task<bool> IsDescriptionValid(string? description)
+    {
+        if (description is null)
+        {
+            await Errors.UpdateAsync(static e => new ValidationErrors { DescriptionErrorMessage = "Wartość jest wymagana." });
             return false;
         }
 
@@ -55,5 +71,6 @@ public partial record SecondModel
     public class ValidationErrors
     {
         public string? CostErrorMessage { get; set; }
+        public string? DescriptionErrorMessage { get; set; }
     }
 }
