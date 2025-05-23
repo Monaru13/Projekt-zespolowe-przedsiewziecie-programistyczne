@@ -24,6 +24,7 @@
 
       <!-- Add resources here -->
       <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+      <local:CurrencyConverter x:Key="CurrencyConverter" />
 
     </ResourceDictionary>
   </Application.Resources>

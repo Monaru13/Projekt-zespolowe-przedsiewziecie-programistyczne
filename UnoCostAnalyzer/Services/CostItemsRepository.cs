@@ -10,6 +10,7 @@ public record CostItemsRepository
         new (Guid.NewGuid(), "Lidl - jabłka", 12.4m, ["zakupy", "lidl"],DateTime.Now),
         new (Guid.NewGuid(), "Rachunki za gaz", 123.21m, ["rachunki", "dom"], DateTime.Now),
         new (Guid.NewGuid(), "Prąd", 154.45m, ["rachunki"], DateTime.Now),
+        new (Guid.NewGuid(), "Inne", 12.45m, [], DateTime.Now),
     ];
 
     private string _selectedTag = ALL_TAG;
